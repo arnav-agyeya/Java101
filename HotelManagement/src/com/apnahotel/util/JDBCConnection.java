@@ -12,7 +12,7 @@ public class JDBCConnection {
 	   static final String PASS = "tiger";
 	   
 	  
-		public Connection getConnection() throws ClassNotFoundException, SQLException 
+		public static Connection getConnection() throws ClassNotFoundException, SQLException 
 		{
 			Class.forName(JDBC_DRIVER);
 			Connection connection=DriverManager.getConnection(DB_URL, USER , PASS);

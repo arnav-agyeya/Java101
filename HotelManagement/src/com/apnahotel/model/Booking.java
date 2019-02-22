@@ -1,13 +1,13 @@
 package com.apnahotel.model;
 
-import java.util.Date;
+import java.time.*;
 
 public class Booking {
                  private long bookingId;
                  private String roomId;
                  private String custId;
-                 private Date checkInDate;
-                 private Date checkOutDate;
+                 private LocalDate checkInDate;
+                 private LocalDate checkOutDate;
                  private long billAmount;
                  private long paidAmount;
                  
@@ -15,7 +15,7 @@ public class Booking {
 					super();
 				}
 
-				public Booking(long bookingId, String roomId, String custId, Date checkInDate, Date checkOutDate,
+				public Booking(long bookingId, String roomId, String custId, LocalDate checkInDate, LocalDate checkOutDate,
 						long billAmount, long paidAmount) {
 					super();
 					this.bookingId = bookingId;
@@ -51,19 +51,19 @@ public class Booking {
 					this.custId = custId;
 				}
 
-				public Date getCheckInDate() {
+				public LocalDate getCheckInDate() {
 					return checkInDate;
 				}
 
-				public void setCheckInDate(Date checkInDate) {
+				public void setCheckInDate(LocalDate checkInDate) {
 					this.checkInDate = checkInDate;
 				}
 
-				public Date getCheckOutDate() {
+				public LocalDate getCheckOutDate() {
 					return checkOutDate;
 				}
 
-				public void setCheckOutDate(Date checkOutDate) {
+				public void setCheckOutDate(LocalDate checkOutDate) {
 					this.checkOutDate = checkOutDate;
 				}
 
