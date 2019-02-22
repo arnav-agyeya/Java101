@@ -16,7 +16,7 @@ public class RoomDaoImplementation implements RoomDao {
 	}
 
 	@Override
-	public boolean updateRoomPrice(String roomId) throws ClassNotFoundException, SQLException {
+	public boolean updateRoomPrice(String roomId, int price) throws ClassNotFoundException, SQLException {
 		// TODO Auto-generated method stub
 		return false;
 	}

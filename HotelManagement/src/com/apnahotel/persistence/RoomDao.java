@@ -9,5 +9,5 @@ import com.apnahotel.model.Room;
 public interface RoomDao {
 	
 	ArrayList<Room> getAvailableRooms(Date checkIn, Date checkOut, String roomType)throws ClassNotFoundException,SQLException;
-	boolean updateRoomPrice(String roomId)throws ClassNotFoundException,SQLException;
+	boolean updateRoomPrice(String roomId, int price)throws ClassNotFoundException,SQLException;
 }
