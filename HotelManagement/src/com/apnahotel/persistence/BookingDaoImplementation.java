@@ -3,6 +3,7 @@ package com.apnahotel.persistence;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ import com.apnahotel.model.Booking;
 import com.apnahotel.util.JDBCConnection;
 
 public class BookingDaoImplementation implements BookingDao {
-	// this is from avinash
+	// this is from avinash 
 	@Override
 	public boolean insertBooking(Booking booking) throws ClassNotFoundException, SQLException {
 		// TODO Auto-generated method stub
@@ -22,6 +23,7 @@ public class BookingDaoImplementation implements BookingDao {
 		preparedStatement.setString(3, booking.getCustId());
 		
 		Date date=Date.valueOf(booking.getCheckInDate());
+		
 		preparedStatement.setDate(4, date);
 		date=Date.valueOf(booking.getCheckOutDate());
 		preparedStatement.setDate(5, date);
@@ -43,8 +45,18 @@ public class BookingDaoImplementation implements BookingDao {
 
 	@Override
 	public ArrayList<Booking> getCustomerBookings(String customerId) throws ClassNotFoundException, SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		Connection connection = JDBCConnection.getConnection();
+		PreparedStatement preparedStatement=connection.prepareStatement("SELECT * FROM BOOKING WHERE CUSTOMER_ID = ?");
+		preparedStatement.setString(1, customerId);
+		ResultSet resultSet=preparedStatement.executeQuery();
+		ArrayList<Booking> result = new ArrayList<>();
+		
+		while(resultSet.next()) {
+			Booking temp = new Booking(resultSet.getLong("booking_id"),resultSet.getString("rooms_id"),resultSet.getString("customer_id"),resultSet.getDate("check_in").toLocalDate(),resultSet.getDate("check_out").toLocalDate(),resultSet.getLong("bill_amount"),resultSet.getLong("paid_amount"));
+			result.add(temp);
+		}
+		connection.close();
+		return result;
 	}
 
 	@Override
