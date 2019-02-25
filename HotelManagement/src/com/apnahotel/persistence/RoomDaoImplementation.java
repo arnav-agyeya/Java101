@@ -10,7 +10,7 @@ import com.apnahotel.model.Room;
 import com.apnahotel.util.JDBCConnection;
 
 public class RoomDaoImplementation implements RoomDao {
-
+    //not complete
 	@Override
 	public ArrayList<Room> getAvailableRooms(LocalDate checkIn, LocalDate checkOut, String roomType)
 			throws ClassNotFoundException, SQLException {

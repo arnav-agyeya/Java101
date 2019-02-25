@@ -1,5 +1,5 @@
 package com.apnahotel.model;
-
+//data type changed
 public class Customer {
                   private String custId;
                   private String custName;

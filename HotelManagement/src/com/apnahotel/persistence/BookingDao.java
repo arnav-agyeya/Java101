@@ -16,3 +16,5 @@ public interface BookingDao {
 	boolean updatePaidAmount(int paidAmount,int bookingId)throws ClassNotFoundException,SQLException;
 	
 }
+
+//parameters changed

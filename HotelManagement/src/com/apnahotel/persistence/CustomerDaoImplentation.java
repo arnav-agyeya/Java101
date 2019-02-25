@@ -12,7 +12,7 @@ import com.apnahotel.model.Customer;
 import com.apnahotel.util.JDBCConnection;
 
 public class CustomerDaoImplentation implements CustomerDao {
-
+    //avinash
 	@Override
 	public boolean insertCustomer(Customer customer) throws ClassNotFoundException, SQLException {
 		Connection connection=JDBCConnection.getConnection();
