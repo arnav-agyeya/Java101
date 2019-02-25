@@ -1,5 +1,5 @@
 package com.apnahotel.model;
-
+//datatype changed
 import java.time.*;
 
 public class Booking {
