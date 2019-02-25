@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.time.*;
 
 import com.apnahotel.model.Booking;
-
+//Arnav Herer
 public interface BookingDao {
 	boolean insertBooking(Booking booking) throws ClassNotFoundException,SQLException;
 	ArrayList<Booking> getAllBookings() throws ClassNotFoundException,SQLException;
