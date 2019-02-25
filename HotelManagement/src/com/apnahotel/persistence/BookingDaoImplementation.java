@@ -12,7 +12,7 @@ import com.apnahotel.model.Booking;
 import com.apnahotel.util.JDBCConnection;
 
 public class BookingDaoImplementation implements BookingDao {
-	// this is from avinash 
+	
 	@Override
 	public boolean insertBooking(Booking booking) throws ClassNotFoundException, SQLException {
 		// TODO Auto-generated method stub
@@ -39,8 +39,24 @@ public class BookingDaoImplementation implements BookingDao {
 
 	@Override
 	public ArrayList<Booking> getAllBookings() throws ClassNotFoundException, SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		Connection connection=JDBCConnection.getConnection();
+		PreparedStatement preparedStatement=connection.prepareStatement("SELECT * FROM BOOKING");
+		ResultSet resultSet=preparedStatement.executeQuery();
+		ArrayList<Booking>result=new ArrayList<>();
+		while(resultSet.next())
+		{
+			Booking temp=new Booking();
+			temp.setBookingId(resultSet.getLong("booking_id"));
+			temp.setRoomId(resultSet.getString("rooms_id"));
+			temp.setCustId(resultSet.getString("customer_id"));
+			temp.setCheckInDate(resultSet.getDate("check_in").toLocalDate());
+			temp.setCheckOutDate(resultSet.getDate("check_out").toLocalDate());
+			temp.setBillAmount(resultSet.getLong("bill_amount"));
+			temp.setPaidAmount(resultSet.getLong("paid_amount"));
+			result.add(temp);
+		}
+		connection.close();
+		return result;
 	}
 
 	@Override
@@ -49,10 +65,13 @@ public class BookingDaoImplementation implements BookingDao {
 		PreparedStatement preparedStatement=connection.prepareStatement("SELECT * FROM BOOKING WHERE CUSTOMER_ID = ?");
 		preparedStatement.setString(1, customerId);
 		ResultSet resultSet=preparedStatement.executeQuery();
-		ArrayList<Booking> result = new ArrayList<>();
+		ArrayList<Booking> result = new ArrayList<>();   //ArrayList to store previous booking too
 		
 		while(resultSet.next()) {
-			Booking temp = new Booking(resultSet.getLong("booking_id"),resultSet.getString("rooms_id"),resultSet.getString("customer_id"),resultSet.getDate("check_in").toLocalDate(),resultSet.getDate("check_out").toLocalDate(),resultSet.getLong("bill_amount"),resultSet.getLong("paid_amount"));
+			Booking temp = new Booking(resultSet.getLong("booking_id"),resultSet.getString("rooms_id"),
+					resultSet.getString("customer_id"),resultSet.getDate("check_in").toLocalDate(),
+					resultSet.getDate("check_out").toLocalDate(),resultSet.getLong("bill_amount"),
+					resultSet.getLong("paid_amount"));
 			result.add(temp);
 		}
 		connection.close();
@@ -60,21 +79,41 @@ public class BookingDaoImplementation implements BookingDao {
 	}
 
 	@Override
-	public boolean updateCheckOutDate(String bookingId, LocalDate checkOutDate)
+	public boolean updateCheckOutDate(int bookingId, LocalDate checkOutDate)
 			throws ClassNotFoundException, SQLException {
-		// TODO Auto-generated method stub
+		Connection connection = JDBCConnection.getConnection();
+		PreparedStatement preparedStatement=connection.prepareStatement("UPDATE BOOKING SET check_out="+checkOutDate+"WHERE booking_id="+bookingId);
+		//preparedStatement.setString(1, booking.getBookingId());
+		int result=preparedStatement.executeUpdate();
+		connection.close();
+		if(result>0)
+			return true;
+		return false;
+	}
+
+	
+
+	@Override
+	public boolean updatePaidAmount(int paidAmount,int bookingId) throws ClassNotFoundException, SQLException {
+		Connection connection = JDBCConnection.getConnection();
+		PreparedStatement preparedStatement=connection.prepareStatement("UPDATE BOOKING SET paid_amount="+paidAmount +"WHERE booking_id="+bookingId);
+		//preparedStatement.setString(1, booking.getBookingId());
+		int result=preparedStatement.executeUpdate();
+		connection.close();
+		if(result>0)
+			return true;
 		return false;
 	}
 
 	@Override
-	public boolean updateTotalAmount(String bookingId, int totalAmount) throws ClassNotFoundException, SQLException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean updatePaidAmount(String bookingId, int paidAmount) throws ClassNotFoundException, SQLException {
-		// TODO Auto-generated method stub
+	public boolean updateTotalAmount(int bookingId, int totalAmount) throws ClassNotFoundException, SQLException {
+		Connection connection = JDBCConnection.getConnection();
+		PreparedStatement preparedStatement=connection.prepareStatement("UPDATE BOOKING SET paid_amount="+totalAmount +"WHERE booking_id="+bookingId);
+		//preparedStatement.setString(1, booking.getBookingId());
+		int result=preparedStatement.executeUpdate();
+		connection.close();
+		if(result>0)
+			return true;
 		return false;
 	}
 

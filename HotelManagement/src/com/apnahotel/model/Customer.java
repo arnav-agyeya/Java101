@@ -3,9 +3,9 @@ package com.apnahotel.model;
 public class Customer {
                   private String custId;
                   private String custName;
-                  private String custSex;
                   private int custAge;
-                  private String custMob;
+                  private String custSex;
+                  private Long custMob;
                   private String custEmail;
                   private String custPassword;
                   
@@ -14,10 +14,8 @@ public class Customer {
 				}
 				
 				
-				
 
-
-				public Customer(String custId, String custName, String custSex, int custAge, String custMob,
+				public Customer(String custId, String custName, int custAge, String custSex, Long custMob,
 						String custEmail, String custPassword) {
 					super();
 					this.custId = custId;
@@ -97,7 +95,7 @@ public class Customer {
 
 
 
-				public String getCustMob() {
+				public Long getCustMob() {
 					return custMob;
 				}
 
@@ -105,7 +103,7 @@ public class Customer {
 
 
 
-				public void setCustMob(String custMob) {
+				public void setCustMob(Long custMob) {
 					this.custMob = custMob;
 				}
 
