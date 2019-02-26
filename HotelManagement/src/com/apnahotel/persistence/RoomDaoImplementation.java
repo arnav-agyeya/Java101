@@ -3,6 +3,7 @@ package com.apnahotel.persistence;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.time.*;
@@ -20,7 +21,25 @@ public class RoomDaoImplementation implements RoomDao {
 		
 		
 		Connection connection = JDBCConnection.getConnection();
-		PreparedStatement preparedStatement = connection.prepareStatement("select * from ROOMS where rooms_type=? and rooms_id not in (select rooms_id from booking where (?>=check_in and ?<=check_out)or(?>=check_in and ?<=check_out)or(?<=check_in and ?>=check_out))");
+		PreparedStatement preparedStatement = connection.prepareStatement("select * from ROOMS  where rooms_type= ?"+ 
+				"	and" + 
+				" 	rooms_id not in " + 
+				"		(" + 
+				"		select rooms_id from booking where " + 
+				"			(" + 
+				"			?>=check_in and ?<=check_out" + 
+				"			)" + 
+				"			or" + 
+				"			(" + 
+				"			?>=check_in and ?<=check_out" + 
+				"			)" + 
+				"			or" + 
+				"			(" + 
+				"			?<=check_in and ?>=check_out" + 
+				"			)" + 
+				"		)" 
+				);
+		System.out.println(roomType);
 		preparedStatement.setString(1, roomType);
 		preparedStatement.setDate(2, Date.valueOf(checkIn));
 		preparedStatement.setDate(3, Date.valueOf(checkIn));
@@ -29,15 +48,19 @@ public class RoomDaoImplementation implements RoomDao {
 		preparedStatement.setDate(6, Date.valueOf(checkIn));
 		preparedStatement.setDate(7, Date.valueOf(checkOut));
 		
+		
+		
 		ResultSet resultSet=preparedStatement.executeQuery();
 		ArrayList<Room> result = new ArrayList<>();   //ArrayList to store previous booking too
-		//System.out.println("Hello");
+		
+		
+		
 		while(resultSet.next()) {
 			Room temp = new Room(resultSet.getString("rooms_id"),resultSet.getString("rooms_location"),
 					resultSet.getString("rooms_type"),resultSet.getInt("rooms_status"),
 					resultSet.getLong("rooms_price"));
-			System.out.println(resultSet.getString("rooms_id"));
-			//result.add(temp);
+			System.out.println(temp);
+			result.add(temp);
 		}
 		
 		return result;

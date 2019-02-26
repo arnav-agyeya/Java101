@@ -40,7 +40,9 @@ public class Test {
 			System.out.println(cd.searchCustomer("21"));*/
 			
 			RoomDao rd = new RoomDaoImplementation();
-			rd.getAvailableRooms(LocalDate.of(2018,07,17), LocalDate.of(2018,07,20), "xl");
+			rd.getAvailableRooms(LocalDate.of(1967,01,12), LocalDate.of(1967,01,14), "xl ");
+			
+			//bd.updateCheckOutDate(1, LocalDate.of(1967,06,25));
 			
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block

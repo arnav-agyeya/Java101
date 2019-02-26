@@ -82,8 +82,9 @@ public class BookingDaoImplementation implements BookingDao {
 	public boolean updateCheckOutDate(int bookingId, LocalDate checkOutDate)
 			throws ClassNotFoundException, SQLException {
 		Connection connection = JDBCConnection.getConnection();
-		PreparedStatement preparedStatement=connection.prepareStatement("UPDATE BOOKING SET check_out="+Date.valueOf(checkOutDate)+"WHERE booking_id="+bookingId);
-		//preparedStatement.setString(1, booking.getBookingId());
+		PreparedStatement preparedStatement=connection.prepareStatement("UPDATE BOOKING SET check_out=? WHERE booking_id = ?");
+		preparedStatement.setInt(2, bookingId);
+		preparedStatement.setDate(1, Date.valueOf(checkOutDate));
 		int result=preparedStatement.executeUpdate();
 		connection.close();
 		if(result>0)
