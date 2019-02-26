@@ -3,7 +3,7 @@ package com.apnahotel.model;
 public class Room {
              private String rID;
              private String rLocation;
-             private int rPrice;
+             private long rPrice;
              private int rStatus;
              private String rType;
              
@@ -12,7 +12,7 @@ public class Room {
  			}
              
              
-			public Room(String rID, String rLocation, int rPrice, int rStatus, String rType) {
+			public Room(String rID, String rLocation,String rType, int rStatus,  long rPrice) {
 				super();
 				this.rID = rID;
 				this.rLocation = rLocation;
@@ -38,7 +38,7 @@ public class Room {
 				this.rLocation = rLocation;
 			}
 
-			public int getrPrice() {
+			public long getrPrice() {
 				return rPrice;
 			}
 

@@ -17,12 +17,12 @@ public class Test {
 		BookingDao bd = new BookingDaoImplementation();
 		//System.out.println("hello");
 		  try {
-			ArrayList<Booking>custBooking=new ArrayList<>();
+			/*ArrayList<Booking>custBooking=new ArrayList<>();
 			custBooking=bd.getCustomerBookings("1");
 			System.out.println(custBooking);
 			custBooking=bd.getAllBookings();
 			System.out.println("======================");
-			System.out.println(custBooking);
+			System.out.println(custBooking);*/
 			/*System.out.println("modify paid amount");
 			int amount=sc.nextInt();
 			boolean isSuccessful=bd.updatePaidAmount(amount,1);
@@ -32,12 +32,16 @@ public class Test {
 				System.out.println("Paid amount not modified");*/
 			
 			
-			Customer customer=new Customer("21","Harish",46,"Male",2345678901L,"harish@abc.com","hareRam");
+			/*Customer customer=new Customer("21","Harish",46,"Male",2345678901L,"harish@abc.com","hareRam");
 			CustomerDao cd=new CustomerDaoImplentation();
 			cd.insertCustomer(customer);
 			System.out.println(cd.searchCustomer("21"));
 			cd.updateCustomerEmail("21","Harish@xyz.com");
-			System.out.println(cd.searchCustomer("21"));
+			System.out.println(cd.searchCustomer("21"));*/
+			
+			RoomDao rd = new RoomDaoImplementation();
+			rd.getAvailableRooms(LocalDate.of(2018,07,17), LocalDate.of(2018,07,20), "xl");
+			
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
