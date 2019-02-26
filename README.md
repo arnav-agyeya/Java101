@@ -47,3 +47,11 @@ where
 	or
 	'14-JUN-67' <=bb.check_in)
 ;
+
+
+
+select * from ROOMS where rooms_type="+roomType+" and rooms_id not in (select rooms_id from booking where ("+checkIn+">=check_in and "+checkIn+"<=check_out)
+  or
+  ("+checkOut+">=check_in and "+checkOut+"<=check_out)
+  or
+  ("+checkIn+"<=check_in and "+checkOut+">=check_out));
